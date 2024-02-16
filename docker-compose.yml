@@ -3,7 +3,7 @@ version: "3.9"
 # extension field: https://docs.docker.com/compose/compose-file/compose-file-v3/#extension-fields
 x-networks: &networks
   networks:
-    - bridge 
+    - ac-network 
 
 x-ac-shared-conf: &ac-shared-conf
   <<: *networks
@@ -150,4 +150,4 @@ volumes:
   ac-client-data:
 
 networks:
-  bridge :
+  ac-network :
