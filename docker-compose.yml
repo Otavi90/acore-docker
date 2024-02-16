@@ -24,7 +24,7 @@ services:
     expose:
       - 3306
     environment:
-      - MYSQL_ROOT_PASSWORD=${DOCKER_DB_ROOT_PASSWORD:-password}
+      - MYSQL_ROOT_PASSWORD=password
     volumes:
       - type: volume
         source: ac-database
