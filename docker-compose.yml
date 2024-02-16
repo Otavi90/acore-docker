@@ -16,6 +16,8 @@ services:
   ac-database:
     <<: *networks
     image: mysql:8.0
+    user: root  # Run as root user inside the container
+    privileged: true
     restart: unless-stopped
     cap_add:
       - SYS_NICE # CAP_SYS_NICE
@@ -43,6 +45,7 @@ services:
     cap_add:
       - SYS_NICE # CAP_SYS_NICE
     image: acore/ac-wotlk-worldserver:${DOCKER_IMAGE_TAG:-7.0.0-dev.1}
+    user: root
     restart: unless-stopped
     privileged: true
     user: ${DOCKER_USER:-acore}
@@ -74,6 +77,8 @@ services:
     <<: *ac-shared-conf
     tty: true
     image: acore/ac-wotlk-authserver:${DOCKER_IMAGE_TAG:-7.0.0-dev.1}
+    user: root
+    privileged: true
     restart: unless-stopped
     ports:
       - ${DOCKER_AUTH_EXTERNAL_PORT:-3724}:3724
@@ -93,6 +98,8 @@ services:
 
   ac-eluna-ts-dev:
     image: acore/eluna-ts:master
+    user: root
+    privileged: true
     # the build:lib is done in the healthcheck
     command: sh -c "chmod -R 777 /eluna-ts/modules && cd /eluna-ts/modules && touch index.ts && npm install && cd /eluna-ts && npm run dev"
     #command: sh -c "cd /eluna-ts/modules && touch index.ts && npm install && cd /eluna-ts && npm run dev"
@@ -119,6 +126,8 @@ services:
   ac-db-import:
     <<: *ac-shared-conf
     image: acore/ac-wotlk-db-import:${DOCKER_IMAGE_TAG:-7.0.0-dev.1}
+    user: root
+    privileged: true
     environment:
       AC_DISABLE_INTERACTIVE: "1"
       AC_DATA_DIR: "/azerothcore/env/dist/data"
