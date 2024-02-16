@@ -64,8 +64,6 @@ services:
       AC_CHARACTER_DATABASE_INFO: "ac-database;3306;root;${DOCKER_DB_ROOT_PASSWORD:-password};acore_characters"
       AC_CLOSE_IDLE_CONNECTIONS: "0"
     depends_on:
-      ac-eluna-ts-dev:
-        condition: service_started
       ac-client-data:
         condition: service_completed_successfully
       ac-db-import:
